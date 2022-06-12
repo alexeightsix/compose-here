@@ -296,9 +296,9 @@ class App {
 
     finished = () => {
         this.config.url.port = this.config.containers.nginx.host_port;
-        console.log(`Add the following entry to your /etc/hosts file: \n 127.0.0.1 ${this.config.url.hostname}`);
+        log.success(`Add the following entry to your /etc/hosts file: \n 127.0.0.1 ${this.config.url.hostname}`);
         const endpoint = `${this.config.url.href}`;
-        console.log(`App URL: ${endpoint}`);
+        log.success(`App URL: ${endpoint}`);
     }
 }
 
