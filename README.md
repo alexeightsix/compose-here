@@ -53,9 +53,9 @@ Upon completion of the installer you should now see your projects docker contain
 
 Using the above as an example, you would then be able to access your applications public endpoints by going to the following URLs:
 
-Nginx - http://foo.local:5080
-Adminer - http://foo.local:5081
-Mailcatcher - http://foo.local:5082
+- Nginx - http://foo.local:5080
+- Adminer - http://foo.local:5081
+- Mailcatcher - http://foo.local:5082
 
 The script is only meant to be generated a single time. Feel free to now modify the docker-compose.yml as desired.
 
