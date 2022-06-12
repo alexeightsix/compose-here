@@ -1,0 +1,5 @@
+version: "3.5"
+services:
+{{containers}}
+volumes:
+  database_volume:

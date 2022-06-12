@@ -1,0 +1,8 @@
+#!/usr/bin/env node
+const App = require('./classes/app.js');
+
+const app = new App();
+
+(async () => {
+    await app.run();
+})();

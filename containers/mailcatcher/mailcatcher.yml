@@ -1,0 +1,6 @@
+${config.namespace}-mailcatcher:
+  container_name: ${config.namespace}-mailcatcher
+  image: schickling/mailcatcher
+  restart: always
+  ports:
+    - ${config.containers.mailcatcher.host_port}:1080

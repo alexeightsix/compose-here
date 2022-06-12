@@ -1,0 +1,13 @@
+${config.namespace}-php:
+  container_name: ${config.namespace}-php
+  command: bash -c "sh /root/init.sh"
+  build:
+    context: ./.docker/php/build
+    target: php-dev
+  restart: always
+  depends_on:
+    - ${config.namespace}-database
+  volumes:
+    - ./.docker/set-ssh-keys.sh:/root/set-ssh-keys.sh
+    - ./:/var/www/${config.namespace}/current
+    - ~/.ssh/:/home/centos/.ssh/

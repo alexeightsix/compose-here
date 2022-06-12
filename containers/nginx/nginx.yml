@@ -1,0 +1,12 @@
+${config.namespace}-nginx:
+  container_name: ${config.namespace}-nginx
+  depends_on:
+    - ${config.namespace}-php
+  build: ./.docker/nginx/build
+  volumes:
+    - ./.docker/nginx/config/nginx.conf:/etc/nginx/nginx.conf
+    - ./.docker/nginx/config/${config.url.hostname}.80.conf:/etc/nginx/conf.d/${config.url.hostname}.80.conf
+    - ./:/var/www/${config.namespace}/current
+  restart: always
+  ports:
+    - ${config.containers.nginx.host_port}:80
