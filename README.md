@@ -38,6 +38,8 @@ The installer will then ask you a series of questions before it proceeds the ins
     ✔ What port do you want to assign adminer: … 3000
     ✔ What port do you want to assign mailcatcher: … 3001
     ✔ What port do you want to assign nginx: … 3080
+    ✔ Install Laravel?: … yes
+    
 
 If the desired port for each container is already in use you will be prompted to enter a different one.
 

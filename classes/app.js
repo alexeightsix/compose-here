@@ -22,17 +22,6 @@ class App {
         defaultConfig.containers = this.getContainers(defaultConfig.root);
 
         this.config = merge(defaultConfig, config);
-
-        // this.config.namespace = "xps";
-        // this.config.dest = process.cwd();
-        // this.config.url = new URL("http://dev.local");
-        // this.config.containers.adminer.host_port = 6600;
-        // this.config.containers.mailcatcher.host_port = 6601;
-        // this.config.containers.mailcatcher.host_port = 6602;
-        // this.config.containers.nginx.host_port = 6680;
-        // this.config.laravel = true;
-
-        // console.log(this.config);
     }
 
     run = async () => {
@@ -74,7 +63,7 @@ class App {
 
     askNamespace = async () => {
         if (this.config.namespace)
-            return this;
+            return;
 
         const response = await prompts({
             type: 'text',
@@ -84,13 +73,11 @@ class App {
         });
 
         this.config.namespace = response.namespace;
-
-        return this;
     }
 
     askDest = async () => {
         if (this.config.dest)
-            return this;
+            return;
 
         const response = await prompts({
             type: 'confirm',
@@ -102,13 +89,11 @@ class App {
             log.error("Project root must be defined.");
 
         this.config.dest = process.cwd();
-
-        return this;
     }
 
     askUrl = async () => {
         if (this.config.url)
-            return this;
+            return;
 
         const response = await prompts({
             type: 'text',
@@ -122,7 +107,6 @@ class App {
         if (this.config.url.port)
             this.config.containers.nginx.host_port = Number(this.config.url.port);
 
-        return this;
     }
 
     getContainers = (root) => {
@@ -182,7 +166,6 @@ class App {
     createDirs = () => {
         if (!fs.existsSync(this.config.dest + '/.docker'))
             fs.mkdirSync(this.config.dest + '/.docker', { recursive: true });
-        return this;
     }
 
     replaceVars = (template_str) => {
@@ -269,7 +252,6 @@ class App {
         });
     };
 
-
     askLaravel = async () => {
         let response = null;
 
@@ -299,19 +281,17 @@ class App {
                 '-e',
                 `DB_DATABASE=${this.config.namespace}`,
                 '-e',
-                `APP_URL="undefined"`
+                `APP_URL=${this.config.url.origin.replaceAll("/", "\\/")}`
             ];
 
             await this.execCommand("docker", ['cp', `${this.config.root}/installers/laravel.sh`, `${this.config.namespace}-php:/root`]);
             await this.execCommand("docker", ['exec', `${this.config.namespace}-php`, 'chmod', 'a+x', `/root/laravel.sh`]);
             await this.execCommand("docker", ['exec', environment, '-i', `${this.config.namespace}-php`, '/root/laravel.sh'].flat());
         }
-        return this;
     }
 
     async buildContainers() {
         await this.execCommand("docker-compose", ['-f', `${this.config.dest}/docker-compose.yml`, 'up', '-d', '--build']);
-        return this;
     }
 
     finished = () => {
@@ -319,7 +299,6 @@ class App {
         console.log(`Add the following entry to your /etc/hosts file: \n 127.0.0.1 ${this.config.url.hostname}`);
         const endpoint = `${this.config.url.href}`;
         console.log(`App URL: ${endpoint}`);
-        return this;
     }
 }
 
