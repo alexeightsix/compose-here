@@ -43,7 +43,7 @@ The installer will then ask you a series of questions before it proceeds the ins
 
 If the desired port for each container is already in use you will be prompted to enter a different one.
 
-Upon completion of the installer you should now see your projects docker containers running by typing docker-container ls:
+Upon completion of the installer you should now see the generated docker-compose.yml file in the root folder of your project. Runng the docker container ls will display a list of running containers:
 
     d9001616886a   adminer:latest           "entrypoint.sh docke…"   5 minutes ago    Up 5 minutes    0.0.0.0:3000->8080/tcp, :::3000->8080/tcp             foo-adminer
     76dc7fa70c60   foo_foo-nginx            "nginx -g 'daemon of…"   5 minutes ago    Up 5 minutes    0.0.0.0:3080->80/tcp, :::3080->80/tcp                 foo-nginx
