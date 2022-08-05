@@ -6,7 +6,7 @@ ${config.namespace}-php:
     target: php-dev
   restart: always
   depends_on:
-    - ${config.namespace}-database
+    - ${config.namespace}-mysql
   volumes:
     - ./.docker/set-ssh-keys.sh:/root/set-ssh-keys.sh
     - ./:/var/www/${config.namespace}/current

@@ -281,7 +281,7 @@ class App {
                 '-e',
                 `DB_DATABASE=${this.config.namespace}`,
                 '-e',
-                `APP_URL=${this.config.url.origin.replaceAll("/", "\\/")}`
+                `APP_URL=${this.config.url.origin}`
             ];
 
             await this.execCommand("docker", ['cp', `${this.config.root}/installers/laravel.sh`, `${this.config.namespace}-php:/root`]);
